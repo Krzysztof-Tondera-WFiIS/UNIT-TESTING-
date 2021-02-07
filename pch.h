@@ -1,62 +1,73 @@
-//
-// pch.h
-// Header for standard system include files.
-//
-
 #pragma once
-
-#include "gtest/gtest.h"
 #include <initializer_list>
+#include <list>
 
 template<typename T>
 // feel free to add/delete methods of LinkedList class, this file is suggestion rather than requirement
 class LinkedList
 {
 public:
-	LinkedList()
-	{
-		// to implement
-	}
-	LinkedList(const std::initializer_list<T>& newValues)
-	{
-		// to implement
-	}
-	void pushFront(const T& newValue)
-	{
-		// to implement
-	}
-	void pushBack(const T& newValue)
-	{
-		// to implement
-	}
-	[[nodiscard]] T popFront()
-	{
-		// to implement
-	}
-	[[nodiscard]] T popBack()
-	{
-		// to implement
-	}
-	[[nodiscard]] unsigned getSize() const
-	{
-		// to implement
-	}
-	[[nodiscard]] bool isEmpty() const
-	{
-		// to implement
-	}
-	void clear()
-	{
-		// to implement
-	}
+    LinkedList()
+    {
+
+    }
+    LinkedList(const std::initializer_list<T>& newValues)
+    {
+        list.assign(newValues);
+    }
+    void pushFront(const T& newValue)
+    {
+        list.push_front(newValue);
+    }
+    void pushBack(const T& newValue)
+    {
+        list.push_back(newValue);
+    }
+    [[nodiscard]] T popFront()
+    {
+        T temp = this->get(0);
+        list.pop_front();
+        return temp;
+    }
+    [[nodiscard]] T popBack()
+    {
+        T temp = this->get(0);
+        list.pop_back();
+        return temp;
+    }
+    [[nodiscard]] unsigned getSize() const
+    {
+        return list.size();
+    }
+    [[nodiscard]] bool isEmpty() const
+    {
+        return list.empty();
+    }
+    void clear()
+    {
+        list.clear();
+    }
+    T get(int num) {
+        int index = 0;
+        for (T i : list) {
+            if (index == num) {
+                return i;
+            }
+            index++;
+        }
+    }
+
+    T operator[](unsigned index)
+    {
+        return get(index);
+    }
+
+    ~LinkedList()
+    {
+        clear();
+    }
 
 private:
-	Node* _head;
-	struct Node
-	{
-		Node(const T& newValue) : value{ newValue } {}
-		Node* next = nullptr;
-		T value;
-	};
+    std::list<T> list;
 
 };
